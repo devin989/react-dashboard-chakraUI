@@ -1,8 +1,8 @@
 // Chakra imports
 import { Flex, Text, Select, useColorModeValue } from "@chakra-ui/react";
 // Custom components
-import Card from "components/card/Card";
-import DonutChart from "components/charts/DonutChart";
+import Card from "components/molecules/card/Card";
+import DonutChart from "components/molecules/charts/DonutChart";
 import { pieChartData, pieChartOptions } from "variables/charts";
 
 export default function Conversion(props: {
