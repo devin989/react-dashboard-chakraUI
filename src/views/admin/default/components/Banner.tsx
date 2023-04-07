@@ -11,7 +11,7 @@ export default function Banner() {
       justify="space-between"
       align={{ base: "center", md: "flex-start" }}
       bg="#2BEBC8"
-      py={{ base: "30px", md: "96px" }}
+      py={{ base: "30px", md: "86px" }}
       px={{ base: "30px", md: "64px" }}
       borderRadius="30px"
       position="relative"
