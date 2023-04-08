@@ -27,12 +27,24 @@ export default function UserReports() {
 
   const openClose = () => {
     return fetch(
-      "https://api.polygon.io/v1/open-close/AAPL/2023-01-09?adjusted=true&apiKey=NlJrZu6Xpj1nY7rUrMC5CpUVwvRtve5q"
-    ).then((res) => res.json());
+      "https://api.polygon.io/v1/open-close/AAPL/2023-01-09?adjusted=true",
+      {
+        headers: {
+          Authorization: "Bearer " + process.env.REACT_APP_API_KEY,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .catch((err) => err.json());
   };
   const groupedDaily = () => {
     return fetch(
-      "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-01-09?adjusted=true&apiKey=NlJrZu6Xpj1nY7rUrMC5CpUVwvRtve5q"
+      "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-01-09?adjusted=true",
+      {
+        headers: {
+          Authorization: "Bearer " + process.env.REACT_APP_API_KEY,
+        },
+      }
     ).then((res) => res.json());
   };
 
