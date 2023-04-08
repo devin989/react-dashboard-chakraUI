@@ -10,7 +10,7 @@ export default function Banner() {
       direction={{ base: "column", md: "row" }}
       justify="space-between"
       align={{ base: "center", md: "flex-start" }}
-      bg="#2BEBC8"
+      bg="#00f0c7"
       py={{ base: "30px", md: "86px" }}
       px={{ base: "30px", md: "64px" }}
       borderRadius="30px"
