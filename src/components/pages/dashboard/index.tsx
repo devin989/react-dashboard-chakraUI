@@ -15,6 +15,7 @@ import Card from "components/molecules/card/Card";
 
 import {
   barChartData,
+  stackedBarChartData,
   lineChartDataTotalSpent,
   lineChartOptionsTotalSpent,
 } from "variables/charts";
@@ -63,6 +64,13 @@ export default function UserReports() {
     const newChartData = [...barChartData];
     newChartData[0].data.push(...highestPrice);
     return newChartData;
+  };
+
+  const stackedBarChartDataHandler = (highestPrice: any, lowestPrice: any) => {
+    const newStackedBarChartData = [...stackedBarChartData];
+    newStackedBarChartData[0].data.push(...highestPrice);
+    newStackedBarChartData[1].data.push(...lowestPrice);
+    return newStackedBarChartData;
   };
 
   if (isLoading) return "Loading...";
@@ -138,7 +146,9 @@ export default function UserReports() {
           flexDirection="column"
           gridArea={{ xl: "1 / 1 / 2 / 3", "2xl": "1 / 1 / 2 / 2" }}
         >
-          <WeeklyRevenue />
+          <WeeklyRevenue
+            barChartData={stackedBarChartDataHandler(highestPrice, lowestPrice)}
+          />
         </Flex>
         <Flex
           flexDirection="column"
