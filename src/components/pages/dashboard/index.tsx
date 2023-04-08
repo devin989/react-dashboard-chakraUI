@@ -2,15 +2,15 @@
 import { Box, Flex, Grid, SimpleGrid } from "@chakra-ui/react";
 
 // Custom components
-import Banner from "views/admin/default/components/Banner";
+import Banner from "components/molecules/dashboard/Banner";
 
-import DailyTraffic from "views/admin/default/components/DailyTraffic";
-import DonutCard from "views/admin/default/components/DonutCard";
-import WeeklyRevenue from "views/admin/default/components/WeeklyRevenue";
+import DailyTraffic from "components/molecules/dashboard/DailyTraffic";
+import DonutCard from "components/molecules/dashboard/DonutCard";
+import WeeklyRevenue from "components/molecules/dashboard/WeeklyRevenue";
 
-import MiniStatistics from "components/card/MiniStatistics";
-import LineChart from "components/charts/LineChart";
-import Card from "components/card/Card";
+import MiniStatistics from "components/molecules/card/MiniStatistics";
+import LineChart from "components/molecules/charts/LineChart";
+import Card from "components/molecules/card/Card";
 
 import {
   lineChartDataTotalSpent,

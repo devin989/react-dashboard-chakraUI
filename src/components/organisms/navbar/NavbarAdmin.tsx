@@ -12,7 +12,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import HeaderSearchBar from "components/navbar/NavbarSearch";
+import HeaderSearchBar from "components/organisms/navbar/NavbarSearch";
 
 export default function AdminNavbar(props: {
   message: string | boolean;

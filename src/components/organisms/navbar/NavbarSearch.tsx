@@ -1,8 +1,8 @@
 // Chakra Imports
 import { Flex, useColorModeValue, useColorMode } from "@chakra-ui/react";
 // Custom Components
-import { SearchBar } from "components/navbar/searchBar/SearchBar";
-import { SidebarResponsive } from "components/sidebar/Sidebar";
+import { SearchBar } from "components/molecules/searchBar/SearchBar";
+import { SidebarResponsive } from "components/organisms/sidebar/Sidebar";
 import PropTypes from "prop-types";
 import React from "react";
 

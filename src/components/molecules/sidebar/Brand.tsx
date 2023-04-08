@@ -2,8 +2,8 @@
 import { Flex } from "@chakra-ui/react";
 
 // Custom components
-import { DashboardLogo } from "components/icons/Icons";
-import { HSeparator } from "components/separator/Separator";
+import { DashboardLogo } from "components/atoms/icons/Icons";
+import { HSeparator } from "components/atoms/separator/Separator";
 
 export function SidebarBrand() {
   return (
