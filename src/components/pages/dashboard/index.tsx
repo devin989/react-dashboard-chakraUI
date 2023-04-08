@@ -23,8 +23,7 @@ import { useState } from "react";
 
 export default function UserReports() {
   const [highestPrice, setHighestPrice] = useState<number[]>([]);
-  const [lowestPrice, setLowestPrice] = useState([]);
-  const [openPrice, setOpenPrice] = useState([]);
+  const [lowestPrice, setLowestPrice] = useState<number[]>([]);
 
   const openClose = () => {
     return fetch(
@@ -45,17 +44,16 @@ export default function UserReports() {
     queryKey: ["openClose"],
     queryFn: openClose,
   });
-  const groupedDailyData = useQuery({
+  useQuery({
     queryKey: ["groupedDaily"],
     queryFn: async () => {
       const data = await groupedDaily();
       const slicedData = data.results.slice(0, 7);
       const highestPrices = slicedData.map((element: { h: any }) => element.h);
       const lowestPrices = slicedData.map((element: { l: any }) => element.l);
-      const openPrices = slicedData.map((element: { o: any }) => element.o);
+
       setHighestPrice(highestPrices);
       setLowestPrice(lowestPrices);
-      setOpenPrice(openPrices);
 
       return slicedData;
     },
@@ -71,6 +69,18 @@ export default function UserReports() {
     newStackedBarChartData[0].data.push(...highestPrice);
     newStackedBarChartData[1].data.push(...lowestPrice);
     return newStackedBarChartData;
+  };
+
+  const donutChartDataHandler = (openCloseData: {
+    open: any;
+    low: any;
+    high: any;
+  }) => {
+    const newDonutChartData = [];
+    newDonutChartData.push(openCloseData.open);
+    newDonutChartData.push(openCloseData.low);
+    newDonutChartData.push(openCloseData.high);
+    return newDonutChartData;
   };
 
   if (isLoading) return "Loading...";
@@ -111,6 +121,7 @@ export default function UserReports() {
               chartOptions={lineChartOptionsTotalSpent}
             />
           }
+          growth="+23%"
           name="High"
           value={openCloseData.high}
         />
@@ -121,6 +132,7 @@ export default function UserReports() {
               chartOptions={lineChartOptionsTotalSpent}
             />
           }
+          growth="+23%"
           name="Low"
           value={openCloseData.low}
         />
@@ -155,7 +167,7 @@ export default function UserReports() {
           gridArea={{ xl: "1 / 3 / 2 / 4", "2xl": "1 / 2 / 2 / 3" }}
         >
           <Card px="0px" mb="20px" h="100%">
-            <DonutCard growth="+20%" />
+            <DonutCard donutChartData={donutChartDataHandler(openCloseData)} />
           </Card>
         </Flex>
       </Grid>

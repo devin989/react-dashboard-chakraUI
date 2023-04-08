@@ -1,21 +1,10 @@
 // Chakra imports
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "components/molecules/card/Card";
 // Custom components
 import BarChart from "components/molecules/charts/BarChart";
 import React from "react";
-import {
- 
-  stackedBarChartOptions,
-} from "variables/charts";
-
+import { stackedBarChartOptions } from "variables/charts";
 
 export default function WeeklyRevenue(props: { barChartData: any }) {
   const { barChartData } = props;
@@ -33,7 +22,7 @@ export default function WeeklyRevenue(props: { barChartData: any }) {
           fontWeight="700"
           lineHeight="100%"
         >
-          Last Month
+          Last Week
         </Text>
       </Flex>
 

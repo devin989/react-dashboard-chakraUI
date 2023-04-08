@@ -205,8 +205,8 @@ export const stackedBarChartOptions: any = {
 };
 
 export const pieChartOptions: any = {
-  labels: ["Your files", "System", "Empty"],
-  colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+  labels: ["Highest Prices", "Lowest Prices", "Open Prices"],
+  colors: ["#4318FF", "#6AD2FF", "#3652ba"],
   chart: {
     width: "50px",
   },
@@ -235,17 +235,13 @@ export const pieChartOptions: any = {
     },
   },
   fill: {
-    colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+    colors: ["#4318FF", "#6AD2FF", "#3652ba"],
   },
   tooltip: {
     enabled: true,
     theme: "dark",
   },
 };
-
-export const pieChartData = [63, 25, 12];
-
-// Total Spent Default
 
 export const lineChartDataTotalSpent = [
   {
