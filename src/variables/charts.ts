@@ -1,13 +1,13 @@
 // Daily Traffic Dashboards Default
 
-export const barChartDataDailyTraffic = [
+export const barChartData = [
   {
     name: "Daily Traffic",
     data: [20, 30, 40, 20, 45, 50, 30],
   },
 ];
 
-export const barChartOptionsDailyTraffic: any = {
+export const barChartOptionsHighestPrice: any = {
   chart: {
     toolbar: {
       show: false,
@@ -30,7 +30,7 @@ export const barChartOptionsDailyTraffic: any = {
     categories: ["00", "04", "08", "12", "14", "16", "18"],
     show: false,
     labels: {
-      show: true,
+      show: false,
       style: {
         colors: "#A3AED0",
         fontSize: "14px",

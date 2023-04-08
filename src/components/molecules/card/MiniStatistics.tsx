@@ -50,12 +50,12 @@ export default function Default(props: {
             {value}
           </StatNumber>
           {growth ? (
-            <Flex align="center" display="block">
+            <Flex align="center" display="flex">
               <Text color="green.500" fontSize="xs" fontWeight="700" me="5px">
                 {growth}
               </Text>
               <Text color="secondaryGray.600" fontSize="xs" fontWeight="400">
-                since last month
+                since yesterday
               </Text>
             </Flex>
           ) : null}

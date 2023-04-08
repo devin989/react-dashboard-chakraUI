@@ -1,10 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
 // Chakra imports
 import { Box, Flex, Grid, SimpleGrid } from "@chakra-ui/react";
 
 // Custom components
 import Banner from "components/molecules/dashboard/Banner";
 
-import DailyTraffic from "components/molecules/dashboard/DailyTraffic";
+import HighestPriceBarChart from "components/molecules/dashboard/HighestPriceBarChart";
 import DonutCard from "components/molecules/dashboard/DonutCard";
 import WeeklyRevenue from "components/molecules/dashboard/WeeklyRevenue";
 
@@ -13,12 +14,61 @@ import LineChart from "components/molecules/charts/LineChart";
 import Card from "components/molecules/card/Card";
 
 import {
+  barChartData,
   lineChartDataTotalSpent,
   lineChartOptionsTotalSpent,
 } from "variables/charts";
+import { useState } from "react";
 
 export default function UserReports() {
-  // Chakra Color Mode
+  const [highestPrice, setHighestPrice] = useState<number[]>([]);
+  const [lowestPrice, setLowestPrice] = useState([]);
+  const [openPrice, setOpenPrice] = useState([]);
+
+  const openClose = () => {
+    return fetch(
+      "https://api.polygon.io/v1/open-close/AAPL/2023-01-09?adjusted=true&apiKey=NlJrZu6Xpj1nY7rUrMC5CpUVwvRtve5q"
+    ).then((res) => res.json());
+  };
+  const groupedDaily = () => {
+    return fetch(
+      "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-01-09?adjusted=true&apiKey=NlJrZu6Xpj1nY7rUrMC5CpUVwvRtve5q"
+    ).then((res) => res.json());
+  };
+
+  const {
+    isLoading,
+    error,
+    data: openCloseData,
+  } = useQuery({
+    queryKey: ["openClose"],
+    queryFn: openClose,
+  });
+  const groupedDailyData = useQuery({
+    queryKey: ["groupedDaily"],
+    queryFn: async () => {
+      const data = await groupedDaily();
+      const slicedData = data.results.slice(0, 7);
+      const highestPrices = slicedData.map((element: { h: any }) => element.h);
+      const lowestPrices = slicedData.map((element: { l: any }) => element.l);
+      const openPrices = slicedData.map((element: { o: any }) => element.o);
+      setHighestPrice(highestPrices);
+      setLowestPrice(lowestPrices);
+      setOpenPrice(openPrices);
+
+      return slicedData;
+    },
+  });
+  const HighestPricebarChartDataHandler = (highestPrice: any) => {
+    const newChartData = [...barChartData];
+    newChartData[0].data.push(...highestPrice);
+    return newChartData;
+  };
+
+  if (isLoading) return "Loading...";
+
+  if (error instanceof Error) return "An error has occurred: " + error.message;
+
   return (
     <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>
       {/* Main Fields */}
@@ -39,7 +89,9 @@ export default function UserReports() {
           gridArea={{ xl: "1 / 3 / 2 / 4", "2xl": "1 / 2 / 2 / 3" }}
         >
           <Card px="0px" mb="20px">
-            <DailyTraffic />
+            <HighestPriceBarChart
+              barChartData={HighestPricebarChartDataHandler(highestPrice)}
+            />
           </Card>
         </Flex>
       </Grid>
@@ -51,8 +103,8 @@ export default function UserReports() {
               chartOptions={lineChartOptionsTotalSpent}
             />
           }
-          name="Earnings"
-          value="$350.4"
+          name="High"
+          value={openCloseData.high}
         />
         <MiniStatistics
           endContent={
@@ -61,8 +113,8 @@ export default function UserReports() {
               chartOptions={lineChartOptionsTotalSpent}
             />
           }
-          name="Spend this month"
-          value="$642.39"
+          name="Low"
+          value={openCloseData.low}
         />
         <MiniStatistics
           endContent={
@@ -72,8 +124,8 @@ export default function UserReports() {
             />
           }
           growth="+23%"
-          name="Sales"
-          value="$574.34"
+          name="Open"
+          value={openCloseData.open}
         />
       </SimpleGrid>
       <Grid
