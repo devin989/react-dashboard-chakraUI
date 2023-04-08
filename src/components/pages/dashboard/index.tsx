@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 // Chakra imports
-import { Box, Flex, Grid, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, Flex, Grid, SimpleGrid, Text } from "@chakra-ui/react";
 
 // Custom components
 import Banner from "components/molecules/dashboard/Banner";
@@ -14,14 +14,12 @@ import LineChart from "components/molecules/charts/LineChart";
 import Card from "components/molecules/card/Card";
 
 import {
-  barChartData,
-  stackedBarChartData,
   lineChartDataTotalSpent,
   lineChartOptionsTotalSpent,
 } from "variables/charts";
 import { useState } from "react";
 
-export default function UserReports() {
+export default function Dashboard() {
   const [highestPrice, setHighestPrice] = useState<number[]>([]);
   const [lowestPrice, setLowestPrice] = useState<number[]>([]);
 
@@ -56,7 +54,7 @@ export default function UserReports() {
     queryKey: ["openClose"],
     queryFn: openClose,
   });
-  useQuery({
+  const groupedDailyData = useQuery({
     queryKey: ["groupedDaily"],
     queryFn: async () => {
       const data = await groupedDaily();
@@ -71,15 +69,17 @@ export default function UserReports() {
     },
   });
   const HighestPricebarChartDataHandler = (highestPrice: any) => {
-    const newChartData = [...barChartData];
-    newChartData[0].data.push(...highestPrice);
+    const newChartData: ChartData[] = [{ data: [] }];
+    newChartData[0].data = highestPrice;
+    console.log(newChartData);
     return newChartData;
   };
 
   const stackedBarChartDataHandler = (highestPrice: any, lowestPrice: any) => {
-    const newStackedBarChartData = [...stackedBarChartData];
-    newStackedBarChartData[0].data.push(...highestPrice);
-    newStackedBarChartData[1].data.push(...lowestPrice);
+    const newStackedBarChartData: ChartData[] = [{ data: [] }, { data: [] }];
+    newStackedBarChartData[0].data = highestPrice;
+    newStackedBarChartData[1].data = lowestPrice;
+
     return newStackedBarChartData;
   };
 
@@ -95,9 +95,28 @@ export default function UserReports() {
     return newDonutChartData;
   };
 
-  if (isLoading) return "Loading...";
+  if (isLoading || groupedDailyData.isLoading)
+    return (
+      // eslint-disable-next-line react/jsx-no-comment-textnodes
+      <Center h="100vh">
+        <Text fontWeight="bold" fontSize="xl">
+          Loading !!!
+        </Text>
+      </Center>
+    );
 
-  if (error instanceof Error) return "An error has occurred: " + error.message;
+  if (error instanceof Error || groupedDailyData.error instanceof Error)
+    return (
+      console.log(error),
+      (
+        // eslint-disable-next-line react/jsx-no-comment-textnodes
+        <Center h="100vh">
+          <Text fontWeight="bold" fontSize="xl">
+            An error has occurred
+          </Text>
+        </Center>
+      )
+    );
 
   return (
     <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>

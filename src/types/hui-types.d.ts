@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export {};
 
 declare global {
@@ -13,4 +15,7 @@ declare global {
     path: string;
     secondary?: boolean;
   }
+  type ChartData = {
+    data: number[];
+  };
 }
