@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import HeaderSearchBar from "components/organisms/navbar/NavbarSearch";
+import { NavLink } from "react-router-dom";
 
 export default function AdminNavbar(props: {
   message: string | boolean;
@@ -92,6 +93,18 @@ export default function AdminNavbar(props: {
         <Box mb={{ sm: "8px", md: "0px" }}>
           <HeaderSearchBar onOpen={props.onOpen} fixed={props.fixed} />
         </Box>
+        <Flex ms="70%" mb="0px">
+          <Text
+            ps="20px"
+            pt="16px"
+            pb="10px"
+            w="100%"
+            fontSize="sm"
+            fontWeight="700"
+          >
+            👋&nbsp; Hey, Adela
+          </Text>
+        </Flex>
         <Box ms="auto" mb={{ sm: "8px", md: "0px" }}>
           <Menu>
             <MenuButton p="0px">
@@ -105,55 +118,6 @@ export default function AdminNavbar(props: {
                 h="40px"
               />
             </MenuButton>
-            <MenuList
-              // boxShadow={shadow}
-              p="0px"
-              mt="10px"
-              borderRadius="20px"
-              // bg={menuBg}
-              border="none"
-            >
-              <Flex w="100%" mb="0px">
-                <Text
-                  ps="20px"
-                  pt="16px"
-                  pb="10px"
-                  w="100%"
-                  borderBottom="1px solid"
-                  fontSize="sm"
-                  fontWeight="700"
-                >
-                  👋&nbsp; Hey, Adela
-                </Text>
-              </Flex>
-              <Flex flexDirection="column" p="10px">
-                <MenuItem
-                  _hover={{ bg: "none" }}
-                  _focus={{ bg: "none" }}
-                  borderRadius="8px"
-                  px="14px"
-                >
-                  <Text fontSize="sm">Profile Settings</Text>
-                </MenuItem>
-                <MenuItem
-                  _hover={{ bg: "none" }}
-                  _focus={{ bg: "none" }}
-                  borderRadius="8px"
-                  px="14px"
-                >
-                  <Text fontSize="sm">Newsletter Settings</Text>
-                </MenuItem>
-                <MenuItem
-                  _hover={{ bg: "none" }}
-                  _focus={{ bg: "none" }}
-                  color="red.400"
-                  borderRadius="8px"
-                  px="14px"
-                >
-                  <Text fontSize="sm">Log out</Text>
-                </MenuItem>
-              </Flex>
-            </MenuList>
           </Menu>
         </Box>
       </Flex>

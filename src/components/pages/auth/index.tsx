@@ -1,7 +1,10 @@
 /* eslint-disable */
 
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 // Chakra imports
 import {
   Box,
@@ -19,22 +22,69 @@ import {
 } from "@chakra-ui/react";
 // Custom components
 
+import { useAppSelector, useAppDispatch } from "app/hooks";
+
 import DefaultAuth from "layouts/auth/Default";
 // Assets
 import illustration from "assets/img/auth/auth.png";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
+import { setUsername } from "slices/userSlice";
+type User = {
+  username: string;
+};
 
+type Token = {
+  token: string;
+};
 function SignIn() {
+  const [userEmail, setUserEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("navy.700", "secondaryGray.600");
   const textColorBrand = useColorModeValue("brand.500", "white");
   const brandStars = useColorModeValue("brand.500", "brand.400");
+  const dispatch = useAppDispatch();
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  // Handler for form submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      // Perform authentication and get JWT token
+      const response = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: userEmail, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Authentication failed");
+      }
+
+      const data: Token = await response.json();
+
+      // Store JWT token in a secure cookie
+      Cookies.set("token", data.token, { secure: true });
+
+      // Decode JWT token to get user info
+      const user: User = jwt_decode(data.token);
+
+      // Update state to reflect authenticated user
+      dispatch(setUsername(user.username));
+      setPassword("");
+      setErrorMessage("");
+    } catch (error) {
+      const err = error as { message?: string };
+      setErrorMessage(err.message ?? "An unknown error occurred");
+    }
+  };
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
       <Flex
@@ -72,6 +122,8 @@ function SignIn() {
               Email<Text color={brandStars}>*</Text>
             </FormLabel>
             <Input
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
               isRequired={true}
               variant="auth"
               fontSize="sm"
@@ -93,6 +145,8 @@ function SignIn() {
             </FormLabel>
             <InputGroup size="md">
               <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 isRequired={true}
                 fontSize="sm"
                 placeholder="Min. 8 characters"
@@ -146,6 +200,7 @@ function SignIn() {
                 w="100%"
                 h="50"
                 mb="24px"
+                // onClick={handleSubmit}
               >
                 Sign In
               </Button>

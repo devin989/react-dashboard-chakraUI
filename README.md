@@ -1,26 +1,21 @@
-### 🎉 [NEW] Horizon UI Components
+# React Dashboard Chakra UI
 
-All the main components from both versions, this will help you to see and interact with all & the latest added components of Horizon (also, new components are on the way, stay tuned)! ⚡️
-<a href="https://horizon-ui.com/components/?ref=readme-horizon-ts" target="_blank">See all components</a>
+Developed Dashboard design using React TS & Chakra UI
 
-### Documentation
+## Screenshots
 
-Each element is well presented in a very complex documentation. You can read
-more about the <a href="https://horizon-ui.com/documentation/docs/introduction?ref=readme-horizon-ts" target="_blank">documentation
-here.</a>
+|     | Web                             | Mobile                        |
+| --- | ------------------------------- | ----------------------------- |
+|     | `'Isn't this fun?'`             | 'Isn't this fun?'             |
+|     | `"Isn't this fun?"`             | "Isn't this fun?"             |
+|     | `-- is en-dash, --- is em-dash` | -- is en-dash, --- is em-dash |
 
-### Quick Start
-
-Install Horizon UI by running either of the following:
-
-- Install NodeJS LTS from
-  [NodeJs Official Page](https://nodejs.org/en/?ref=horizon-documentation)
-  (NOTE: Product only works with LTS version)
+## Quick start
 
 Clone the repository with the following command:
 
 ```bash
-git clone https://github.com/horizon-ui/horizon-ui-chakra-ts.git
+git clone  https://github.com/horizon-ui/horizon-ui-chakra-ts.git
 ```
 
 Run in terminal this command:
@@ -34,3 +29,20 @@ Then run this command to start your local server
 ```bash
 npm start
 ```
+
+### Instructions
+
+- Each left menu item is clickable and lead to blank page except the Dashboard
+  menu
+- Dashboard menu is selected by default
+- Polygon API used to fetch data
+  - [Polygon](https://polygon.io/docs/stocks/getting-started)
+- React Query used as Data fetching library. All chaching and error handling managed by itself
+- Redux Tookit is used to handle user data
+- Code is strcutured by using atomic design pattern
+- Jest is used as test framework
+- Used security best practices
+  - used Env to store API key
+  - used Authorization headers to pass API key
+  - used JWT
+- Maintained proper Git Branching structure

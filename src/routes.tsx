@@ -9,10 +9,7 @@ import {
 
 // Admin Imports
 import MainDashboard from "components/pages/dashboard";
-// import NFTMarketplace from "views/admin/marketplace";
-// import Profile from "views/admin/profile";
-// import DataTables from 'views/admin/dataTables';
-// import RTL from "views/admin/rtl";
+import Empty from "components/pages/empty";
 
 // Auth Imports
 import SignInCentered from "components/pages/auth";
@@ -28,7 +25,7 @@ const routes = [
   {
     name: "Orders",
     layout: "/admin",
-    path: "/nft-marketplace",
+    path: "/orders",
     icon: (
       <Icon
         as={MdOutlineShoppingCart}
@@ -37,32 +34,39 @@ const routes = [
         color="inherit"
       />
     ),
-    component: MainDashboard,
+    component: Empty,
     secondary: true,
   },
   {
     name: "Accounts",
     layout: "/admin",
     icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: "/data-tables",
-    component: MainDashboard,
+    path: "/accounts",
+    component: Empty,
   },
   {
     name: "Settings",
     layout: "/admin",
-    path: "/profile",
+    path: "/settings",
     icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-    component: MainDashboard,
+    component: Empty,
   },
   {
     name: "Chat",
-    layout: "/rtl",
-    path: "/rtl-default",
+    layout: "/admin",
+    path: "/chat",
     icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-    component: MainDashboard,
+    component: Empty,
   },
   {
     name: "FAQ",
+    layout: "/auth",
+    path: "/faq",
+    icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
+    component: Empty,
+  },
+  {
+    name: "SIGN IN",
     layout: "/auth",
     path: "/sign-in",
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,

@@ -1,12 +1,3 @@
-// Daily Traffic Dashboards Default
-
-export const barChartData = [
-  {
-    name: "Daily Traffic",
-    data: [20, 30, 40, 20, 45, 50, 30],
-  },
-];
-
 export const barChartOptionsHighestPrice: any = {
   chart: {
     toolbar: {
@@ -102,19 +93,6 @@ export const barChartOptionsHighestPrice: any = {
     },
   },
 };
-
-// Consumption Users Reports
-
-export const stackedBarChartData = [
-  {
-    name: "Highest Price",
-    data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
-  },
-  {
-    name: "Lowest Price",
-    data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
-  },
-];
 
 export const stackedBarChartOptions: any = {
   chart: {
