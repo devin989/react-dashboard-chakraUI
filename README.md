@@ -16,7 +16,7 @@ Developed Dashboard design using React TS & Chakra UI
 Clone the repository with the following command:
 
 ```bash
-git clone  https://github.com/horizon-ui/horizon-ui-chakra-ts.git
+git clone  https://github.com/devin989/react-dashboard-chakraUI.git
 ```
 
 Run in terminal this command:
