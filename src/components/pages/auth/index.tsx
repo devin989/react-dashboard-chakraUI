@@ -1,7 +1,10 @@
 /* eslint-disable */
 
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 // Chakra imports
 import {
   Box,
@@ -24,8 +27,17 @@ import DefaultAuth from "layouts/auth/Default";
 import illustration from "assets/img/auth/auth.png";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
+type User = {
+  username: string;
+};
 
+type Token = {
+  token: string;
+};
 function SignIn() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
@@ -35,6 +47,40 @@ function SignIn() {
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  // Handler for form submission
+  // Handler for form submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      // Perform authentication and get JWT token
+      const response = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Authentication failed");
+      }
+
+      const data: Token = await response.json();
+
+      // Store JWT token in a secure cookie
+      Cookies.set("token", data.token, { secure: true });
+
+      // Decode JWT token to get user info
+      const user: User = jwt_decode(data.token);
+
+      // Update state to reflect authenticated user
+      setUsername(user.username);
+      setPassword("");
+      setErrorMessage("");
+    } catch (error) {
+      const err = error as { message?: string };
+      setErrorMessage(err.message ?? "An unknown error occurred");
+    }
+  };
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
       <Flex
@@ -146,6 +192,7 @@ function SignIn() {
                 w="100%"
                 h="50"
                 mb="24px"
+                // onClick={handleSubmit}
               >
                 Sign In
               </Button>
