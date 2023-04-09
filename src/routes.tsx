@@ -63,6 +63,13 @@ const routes = [
     layout: "/auth",
     path: "/faq",
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
+    component: Empty,
+  },
+  {
+    name: "SIGN IN",
+    layout: "/auth",
+    path: "/sign-in",
+    icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
     component: SignInCentered,
   },
 ];
