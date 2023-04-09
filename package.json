@@ -1,6 +1,5 @@
 {
-	"homepage": "https://horizon-ui.com/horizon-ui-chakra-ts",
-	"name": "horizon-ui-chakra-typescript",
+	"name": "react-admin-dashboard",
 	"version": "1.1.0",
 	"private": true,
 	"dependencies": {
@@ -66,6 +65,7 @@
 	"devDependencies": {
 		"@types/react-calendar": "^3.5.2",
 		"@types/react-router-dom": "^5.3.3",
-		"gh-pages": "^3.2.3"
+		"gh-pages": "^3.2.3",
+		"jest-watch-typeahead": "^0.6.5"
 	}
 }
