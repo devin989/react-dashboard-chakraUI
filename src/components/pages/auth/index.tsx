@@ -22,11 +22,14 @@ import {
 } from "@chakra-ui/react";
 // Custom components
 
+import { useAppSelector, useAppDispatch } from "app/hooks";
+
 import DefaultAuth from "layouts/auth/Default";
 // Assets
 import illustration from "assets/img/auth/auth.png";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
+import { setUsername } from "slices/userSlice";
 type User = {
   username: string;
 };
@@ -35,7 +38,7 @@ type Token = {
   token: string;
 };
 function SignIn() {
-  const [username, setUsername] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   // Chakra color mode
@@ -44,10 +47,11 @@ function SignIn() {
   const textColorDetails = useColorModeValue("navy.700", "secondaryGray.600");
   const textColorBrand = useColorModeValue("brand.500", "white");
   const brandStars = useColorModeValue("brand.500", "brand.400");
+  const dispatch = useAppDispatch();
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  // Handler for form submission
+
   // Handler for form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,7 +61,7 @@ function SignIn() {
       const response = await fetch("/api/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username: userEmail, password }),
       });
 
       if (!response.ok) {
@@ -73,7 +77,7 @@ function SignIn() {
       const user: User = jwt_decode(data.token);
 
       // Update state to reflect authenticated user
-      setUsername(user.username);
+      dispatch(setUsername(user.username));
       setPassword("");
       setErrorMessage("");
     } catch (error) {
@@ -118,6 +122,8 @@ function SignIn() {
               Email<Text color={brandStars}>*</Text>
             </FormLabel>
             <Input
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
               isRequired={true}
               variant="auth"
               fontSize="sm"
@@ -139,6 +145,8 @@ function SignIn() {
             </FormLabel>
             <InputGroup size="md">
               <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 isRequired={true}
                 fontSize="sm"
                 placeholder="Min. 8 characters"
