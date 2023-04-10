@@ -46,4 +46,5 @@ npm start
   - used Env to store API key
   - used Authorization headers to pass API key
   - used JWT
+- Dark Mode support
 - Maintained proper Git Branching structure
