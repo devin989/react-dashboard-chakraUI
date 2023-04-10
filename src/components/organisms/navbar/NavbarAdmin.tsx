@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import HeaderSearchBar from "components/organisms/navbar/NavbarSearch";
+import avatar10 from "../../../assets/img/avatars/avatar10.png";
 import { NavLink } from "react-router-dom";
 
 export default function AdminNavbar(props: {
@@ -111,6 +112,7 @@ export default function AdminNavbar(props: {
               <Avatar
                 _hover={{ cursor: "pointer" }}
                 color="white"
+                src={avatar10}
                 name="Adela Parkson"
                 bg="#11047A"
                 size="sm"
