@@ -16,7 +16,12 @@ export default function Banner() {
       borderRadius="30px"
       position="relative"
     >
-      <Box position="absolute" right="50px" top="90px">
+      <Box
+        display={{ base: "none", xl: "block" }}
+        position="absolute"
+        right="50px"
+        top="90px"
+      >
         <Image src={banner} alt="Your image" boxSize="200px" objectFit="fill" />
       </Box>
       <Box>
